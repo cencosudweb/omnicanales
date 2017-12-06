@@ -1,0 +1,54 @@
+El programa se esta ejecutando...
+14
+Inicio Programa: 04/12/17 12:44:36
+
+RUTA_ENVIO: \\172.18.149.154\datamart
+
+buffer: [B@224aed64
+
+sFechaIni: 25-10-2017
+
+sFechaFin: 25-10-2017
+
+sFecha: 20171025
+
+secuencia1: null
+
+secuencia2: 14
+
+Pausa para Eliminar contador sleep(60 seg)
+
+retorno secuencia = 47
+
+Pausa para Agregar registro contador sleep(60 seg) 
+
+retorno secuencia = 47
+
+[Ini Metodo agregarRegistroSecuencia]
+
+Registros agrados SECUENCIA: 1
+[Fin Metodo agregarRegistroSecuencia]
+
+retorno secuencia = 48
+
+obtenerSecuencia=48
+
+retorno secuencia = 48
+
+retorno secuencia = 48
+
+numero de secuencia 48
+
+Query : SELECT ' ' as ASNID ,PO.ext_purchase_orders_id as SHIPMENT_ID ,o.O_FACILITY_ALIAS_ID     as Origen,NVL(o.D_FACILITY_ALIAS_ID,'CLIENTE')     as Destino , PO.tc_purchase_orders_id as BILL_OF_LADING_NUMBER  ,ot.order_type as BILL_OF_LADING_NUMBER_1 ,O.tc_order_id              as N_Orden_Distribu ,POL.sku                    as SKU ,POL.tc_po_line_id          as Linea_PO ,sum(POL.allocated_qty)          as Cant_Desc_SKU ,' ' as LPN_ID ,PO.created_dttm            as Fecha ,' ' as MANIF_NBR ,POS.description            as Est_Orden   ,POS2.description           as Estado_de_Linea ,CASE  WHEN POL.order_fulfillment_option = '01' THEN 'BOPIS' WHEN POL.order_fulfillment_option = '02' THEN 'CLICK AND COLLECT' ELSE 'DESP.DOM.' END AS Bopis_CC ,0 as COSTO_PROMEDIO ,PO.tc_purchase_orders_id as NUM_ORDEN ,POL.tc_po_line_id as NUM_LINEA ,0 as TIPO_ERROR ,'SIN ERROR' DESCRIP_ERROR FROM CA14.purchase_orders po  INNER JOIN CA14.PURCHASE_ORDERS_LINE_ITEM POL   ON pol.purchase_orders_id = po.purchase_orders_id INNER JOIN CA14.purchase_orders_status pos  ON pos.purchase_orders_status = po.purchase_orders_status INNER JOIN CA14.order_type ot ON ot.order_type_id = po.order_category INNER JOIN CA14.item_cbo ic ON ic.item_id = POL.SKU_ID INNER JOIN CA14.order_line_item OLI ON OLI.PURCHASE_ORDER_LINE_NUMBER = POL.TC_PO_LINE_ID  AND OLI.mo_line_item_id = POL.purchase_orders_line_item_id AND OLI.ITEM_ID = POL.SKU_ID AND Oli.Is_Cancelled = 0 LEFT JOIN CA14.orders o ON o.Order_ID = OLI.Order_ID AND o.purchase_order_id =  po.purchase_orders_id AND o.IS_CANCELLED = 0 INNER JOIN CA14.purchase_orders_status pos2  ON pos2.purchase_orders_status = pol.purchase_orders_line_status INNER JOIN CA14.DO_status sts   ON o.do_status = sts.order_status    WHERE ot.order_type_id in(6)  AND PO.is_purchase_orders_confirmed = '1' AND PO.created_dttm >= to_date('25-10-2017 00:00:01','DD-MM-YYYY HH24:MI:SS') AND PO.created_dttm <= to_date('25-10-2017 23:59:59','DD-MM-YYYY HH24:MI:SS')  AND o.D_FACILITY_ALIAS_ID IS NULL  AND pol.purchase_orders_line_status <> 940 GROUP BY PO.ext_purchase_orders_id,o.O_FACILITY_ALIAS_ID,o.D_FACILITY_ALIAS_ID,PO.tc_purchase_orders_id,O.tc_order_id,POL.tc_po_line_id,POL.sku, PO.created_dttm, POS.description, POS2.description, POL.order_fulfillment_option,ot.order_type  UNION SELECT ' ' as ASNID ,PO.ext_purchase_orders_id as SHIPMENT_ID ,o.O_FACILITY_ALIAS_ID     as Origen ,NVL(o.D_FACILITY_ALIAS_ID,'CLIENTE')     as Destino , PO.tc_purchase_orders_id as BILL_OF_LADING_NUMBER  ,ot.order_type as BILL_OF_LADING_NUMBER ,O.tc_order_id              as N_Orden_Distribu ,POL.sku                    as SKU ,POL.tc_po_line_id          as Linea_PO ,sum(POL.allocated_qty)          as Cant_Desc_SKU ,' ' as LPN_ID ,PO.created_dttm            as Fecha ,' ' as MANIF_NBR ,POS.description            as Est_Orden   ,POS2.description           as Estado_de_Linea ,CASE  WHEN POL.order_fulfillment_option = '01' THEN 'BOPIS' WHEN POL.order_fulfillment_option = '02' THEN 'CLICK AND COLLECT' ELSE 'DESP.DOM.' END AS Bopis_CC ,0 as COSTO_PROMEDIO ,PO.tc_purchase_orders_id as NUM_ORDEN ,POL.tc_po_line_id as NUM_LINEA ,0 as TIPO_ERROR ,'SIN ERROR' DESCRIP_ERROR FROM CA14.purchase_orders po INNER JOIN CA14.PURCHASE_ORDERS_LINE_ITEM POL  ON pol.purchase_orders_id = po.purchase_orders_id INNER JOIN CA14.purchase_orders_status pos ON pos.purchase_orders_status = po.purchase_orders_status INNER JOIN CA14.order_type ot ON ot.order_type_id = po.order_category INNER JOIN CA14.item_cbo ic  ON ic.item_id = POL.SKU_ID INNER JOIN CA14.order_line_item OLI ON OLI.PURCHASE_ORDER_LINE_NUMBER = POL.TC_PO_LINE_ID AND OLI.mo_line_item_id = POL.purchase_orders_line_item_id AND OLI.ITEM_ID = POL.SKU_ID AND Oli.Is_Cancelled = 0 LEFT JOIN CA14.orders o  ON o.Order_ID = OLI.Order_ID AND o.purchase_order_id =  po.purchase_orders_id  AND o.IS_CANCELLED = 0 INNER JOIN CA14.purchase_orders_status pos2 ON pos2.purchase_orders_status = pol.purchase_orders_line_status INNER JOIN CA14.DO_status sts ON o.do_status = sts.order_status WHERE PO.is_purchase_orders_confirmed = '1' AND ot.order_type_id in(22,42)  AND POL.order_fulfillment_option = '02' AND PO.created_dttm >= to_date('25-10-2017 00:00:01','DD-MM-YYYY HH24:MI:SS') AND PO.created_dttm <= to_date('25-10-2017 23:59:59','DD-MM-YYYY HH24:MI:SS') AND o.O_FACILITY_ALIAS_ID <> o.D_FACILITY_ALIAS_ID AND pol.purchase_orders_line_status <> 940 GROUP BY PO.ext_purchase_orders_id,o.O_FACILITY_ALIAS_ID,o.D_FACILITY_ALIAS_ID,PO.tc_purchase_orders_id,O.tc_order_id,POL.tc_po_line_id,POL.sku, PO.created_dttm, POS.description, POS2.description, POL.order_fulfillment_option,ot.order_type  UNION SELECT ' ' as ASNID ,PO.ext_purchase_orders_id as SHIPMENT_ID ,o.O_FACILITY_ALIAS_ID     as Origen ,NVL(o.D_FACILITY_ALIAS_ID,'CLIENTE')     as Destino , PO.tc_purchase_orders_id as BILL_OF_LADING_NUMBER   ,ot.order_type as BILL_OF_LADING_NUMBER_1 ,O.tc_order_id              as N_Orden_Distribu ,POL.sku                    as SKU ,POL.tc_po_line_id          as Linea_PO ,sum(POL.allocated_qty)          as Cant_Desc_SKU ,' ' as LPN_ID ,PO.created_dttm            as Fecha ,' ' as MANIF_NBR ,POS.description            as Est_Orden ,POS2.description           as Estado_de_Linea ,CASE WHEN POL.order_fulfillment_option = '01' THEN 'BOPIS' WHEN POL.order_fulfillment_option = '02' THEN 'CLICK AND COLLECT' ELSE 'DESP.DOM.' END AS Bopis_CC ,0 as COSTO_PROMEDIO ,PO.tc_purchase_orders_id as NUM_ORDEN ,POL.tc_po_line_id as NUM_LINEA ,0 as TIPO_ERROR ,'SIN ERROR' DESCRIP_ERROR FROM CA14.purchase_orders po INNER JOIN CA14.PURCHASE_ORDERS_LINE_ITEM POL ON pol.purchase_orders_id = po.purchase_orders_id INNER JOIN CA14.purchase_orders_status pos ON pos.purchase_orders_status = po.purchase_orders_status INNER JOIN CA14.order_type ot ON ot.order_type_id = po.order_category INNER JOIN CA14.item_cbo ic ON ic.item_id = POL.SKU_ID INNER JOIN CA14.order_line_item OLI ON OLI.PURCHASE_ORDER_LINE_NUMBER = POL.TC_PO_LINE_ID AND OLI.mo_line_item_id = POL.purchase_orders_line_item_id AND OLI.ITEM_ID = POL.SKU_ID AND Oli.Is_Cancelled = 0 LEFT JOIN CA14.orders o ON o.Order_ID = OLI.Order_ID AND o.purchase_order_id =  po.purchase_orders_id AND o.IS_CANCELLED = 0 INNER JOIN CA14.purchase_orders_status pos2 ON pos2.purchase_orders_status = pol.purchase_orders_line_status INNER JOIN CA14.DO_status sts ON o.do_status = sts.order_status WHERE PO.is_purchase_orders_confirmed = '1' AND ot.order_type_id in(42)  AND POL.order_fulfillment_option = '01' AND PO.created_dttm >= to_date('25-10-2017 00:00:01','DD-MM-YYYY HH24:MI:SS') AND PO.created_dttm <= to_date('25-10-2017 23:59:59','DD-MM-YYYY HH24:MI:SS') AND pol.purchase_orders_line_status <> 940  GROUP BY PO.ext_purchase_orders_id,o.O_FACILITY_ALIAS_ID,o.D_FACILITY_ALIAS_ID,PO.tc_purchase_orders_id,O.tc_order_id,POL.tc_po_line_id,POL.sku, PO.created_dttm, POS.description, POS2.description, POL.order_fulfillment_option,ot.order_type 
+
+Archivos creado 1.
+
+count: 3180
+Pausa de (60 seg) para archivo 2 
+
+Query2 : 
+
+[crearTxt1]Exception:La sentencia SQL de ejecución no puede estar vacía ni ser nula
+Fin Programa: 04/12/17 12:44:36
+
+El programa finalizo.
