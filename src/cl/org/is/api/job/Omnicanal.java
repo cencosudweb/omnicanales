@@ -43,7 +43,8 @@ public class Omnicanal {
 	private static final int FORMATO_FECHA_4 = 4;
 	private final static double fB = 1024.0;
 	
-	private static final String RUTA_ENVIO = "\\\\172.18.149.154\\datamart";//
+	//private static final String RUTA_ENVIO = "\\\\172.18.149.154\\datamart";//
+	private static final String RUTA_ENVIO = "";//
 	
 
 	private static BufferedWriter bw;
@@ -421,7 +422,7 @@ public class Omnicanal {
 			info("Pausa de (60 seg) para archivo 2 " + "\n");
 			
 			sb2 = new StringBuffer();
-			//sb2.append("SELECT TRIM(NVL(TO_CHAR(SUM(1),'9G999G999'),0)) as total from dual  ");
+			sb2.append("SELECT TRIM(NVL(TO_CHAR(SUM(1),'9G999G999'),0)) as total from dual  ");
 			/*
 			sb2.append("SELECT SUM(1) as total  ");
 			sb2.append("FROM ( ");
